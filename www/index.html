@@ -8,13 +8,13 @@
         <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
         <link rel="import" href="elements.html">
         <link rel="import" href="post-card.html">
-        <link rel="import" href="image-load.html">
+        <link rel="import" href="gallery-images.html">
         <link rel="import" href="events-list.html">
         <link rel="import" href="specials-list.html">
         <script type="text/javascript" src="js/index.js"></script>
         <script src="cordova.js"></script>
         <link rel="stylesheet" type="text/css" href="css/index.css">
-        <link rel="stylesheet" href="js/ideal-image-slider.min.css">
+        <link rel="stylesheet" href="js/ideal-image-slider.css">
         <link rel="stylesheet" href="css/default.css">
         <style>
         </style>
@@ -30,8 +30,11 @@
                             <core-icon-button core-drawer-toggle icon="menu"></core-icon-button>
                             <div>Home</div>
                         </core-toolbar>
-                        <div>
-                            <image-load></image-load>
+                        <div id="slider">
+                            <!--CHANGE FOR RELEASE-->
+                            <img src="../api/gallery/home/1.jpg">
+                            <img src="../api/gallery/home/2.jpg">
+                            <img src="../api/gallery/home/3.jpg">
                         </div>
                         <img class="logo" width="100%" src="img/logo.png">
                     </section>
@@ -67,6 +70,9 @@
                             <core-icon-button core-drawer-toggle icon="menu"></core-icon-button>
                             <div>Gallery</div>
                         </core-toolbar>
+                        <div class="container" layout vertical center>
+                            <gallery-images></gallery-images>
+                        </div>
                     </section>
                     <!--Contact us-->
                     <section>

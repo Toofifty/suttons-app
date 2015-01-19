@@ -1,0 +1,30 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="post-service.html">
+<link rel="stylesheet" href="js/ideal-image-slider.css">
+
+<polymer-element name="gallery-images">
+    <template>
+        <style>
+            :host {
+                display: block;
+                width: 100%;
+            }
+            img {
+                position: relative;
+                width: 100%;
+                background-color: #111;
+                padding: 0px;
+                margin: 0px;
+            }
+        </style>
+        <post-service id="service" posts="{{posts}}" url="../api/gallery.json"></post-service>
+        <template repeat="{{post in posts}}">
+            <post-card>
+                <img src="{{post.image}}" alt="{{post.description}}"/>
+            </post-card>
+        </template>
+    </template>
+    <script>
+        Polymer({});
+    </script>
+</polymer-element>
