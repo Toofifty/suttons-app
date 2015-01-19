@@ -1,0 +1,20 @@
+<!doctype html>
+<head>
+    <title>Test Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="import" href="elements.html">
+</head>
+<body unresolved>
+    <div class="map-div">
+        <core-header-panel z-index="100" main flex></core-header-panel>
+        <paper-button flex onclick="window.location.href = 'index.html';">
+            <core-item icon="home"></core-item>
+            Return to Suttons app
+        </paper-button>
+        <iframe id="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d790.6696540726181!2d143.859504!3d-37.56263500000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad144f8f091d471%3A0xfcb1b132203fcd60!2s31+Sturt+St%2C+Ballarat+VIC+3350!5e0!3m2!1sen!2sau!4v1420817072605" frameborder="0" height="100%"></iframe>
+    </div>
+</body>

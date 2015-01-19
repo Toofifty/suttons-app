@@ -1,0 +1,15 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="post-service.html">
+
+<polymer-element name="home-images">
+    <template>
+        <post-service id="service" posts="{{posts}}" url="../api/home.json"></post-service>
+        <template repeat="{{post in posts}}">
+            <p>poo</p>
+            <img src="{{post.image}}" alt="{{post.alt}}"/>
+        </template>
+    </template>
+    <script>
+        Polymer({});
+    </script>
+</polymer-element>

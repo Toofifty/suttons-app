@@ -1,0 +1,23 @@
+{
+  "name": "www",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Toofifty/suttons-app",
+  "authors": [
+    "Toofifty <amatho250@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.5.2",
+    "core-scaffold": "Polymer/core-scaffold#~0.5.2",
+    "paper-elements": "Polymer/paper-elements#~0.5.2",
+    "core-animated-pages": "Polymer/core-animated-pages#~0.5.2",
+    "core-ajax": "Polymer/core-ajax#~0.5.2"
+  }
+}

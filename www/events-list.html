@@ -1,0 +1,68 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="post-service.html">
+<link rel="import" href="post-card.html">
+<script type="text/javascript" src="js/index.js"></script>
+
+<polymer-element name="events-list" attributes="show">
+    <template>
+        <style>
+            :host {
+                display: block;
+                width: 100%;
+            }
+            p {
+                margin-top: 0px;
+                margin-bottom: 0px;
+                padding: 10px;
+                font-size: 14px;
+                font-family: arial, sans-serif;
+            }
+            h4 {
+                margin-top: 0px;
+                margin-bottom: 0px;
+                margin-left: 0px;
+                padding: 0px;
+                font-style: italic;
+                font-family: 'Georgia', sans-serif;
+                background-color: #111;
+                margin: 0px;
+                padding: 10px;
+            }
+            paper-toast {
+                z-index: 100;   
+            }
+            img {
+                position: relative;
+                width: 100%;
+                margin-bottom: 20px;
+                background-color: #111;
+                padding: 0px;
+                margin: 0px;
+            }
+        </style>
+
+        <post-service id="service" posts="{{posts}}" url="../api/events.json"></post-service>
+
+        <div layout vertical center>
+            <template repeat="{{post in posts}}">
+                <post-card on-click="{{buttonClick}}">
+                    <h4 flex>{{post.title}}</h4>
+                    <p>{{post.text}}</p>
+                    <img style="right: 0px;" src="{{post.image}}">
+                </post-card>
+            </template>
+        </div>
+        </template>
+    <script>
+        Polymer({
+            buttonClick: function(event, detail, sender) {
+                var address = event.target.templateInstance.model.post.link;
+                if (address != "") {
+                    window.open(address, '_system', 'location=no');
+                } else {
+                    showNoLinkError();
+                }
+            }
+        });
+    </script>
+</polymer-element>

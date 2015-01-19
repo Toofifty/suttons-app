@@ -1,0 +1,30 @@
+
+
+  events.json and specials.json : usage!
+
+  Put your text in between the quotation marks, i.e. "text here",
+
+  If your text already contains quotation marks (apostrophe's don't matter)
+  you MUST put a backslash before each, i.e " Someone said \"quote\". ",
+                                        OR  " Someone said 'quote'.",
+                                        Either will work fine.
+
+  You also need to ensure there is a comma after each field (end of each line)
+  AND after each different set (after the } bracket) otherwise nothing will work!
+  BUT commas should not be placed after the final fields in any set (i.e. after the "image" line,
+  and the very last } bracket)
+
+  Put as many sets/events/specials in as you wish, just follow these rules and make
+  sure all of the sets are between the square ( [ ] ) brackets
+
+  They will always appear in the same order on the app as in here.
+
+  Here's a set template (good to copy/paste)
+  
+  {
+    "title" : "",
+    "text" : "",
+    "moreText" : ""
+  },
+
+  Alternatively, email me and I'll do the updates.
