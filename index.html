@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Test Project</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+        <link rel="import" href="elements.html">
+        <link rel="import" href="post-card.html">
+        <link rel="import" href="gallery-list.html">
+        <link rel="import" href="events-list.html">
+        <link rel="import" href="specials-list.html">
+        <script type="text/javascript" src="js/index.js"></script>
+        <!--<script src="cordova.js"></script>-->
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        <link rel="stylesheet" href="js/ideal-image-slider.css">
+        <link rel="stylesheet" href="css/default.css">
+        <style>
+        </style>
+    </head>
+    <body unresolved fullbleed layout vertical>
+        <core-drawer-panel id="drawer_panel">
+            <core-header-panel main flex>
+                <!--pages-->
+                <core-animated-pages selected="0">
+                    <!--Home Page-->
+                    <section>
+                        <core-toolbar id="core_toolbar" >
+                            <core-icon-button core-drawer-toggle icon="menu"></core-icon-button>
+                            <div>Home</div>
+                        </core-toolbar>
+                        <div id="slider">
+                            <!--CHANGE FOR RELEASE-->
+                            <img src="img/home/1.jpg">
+                            <img src="img/home/2.jpg">
+                            <img src="img/home/3.jpg">
+                        </div>
+                        <img class="logo" width="100%" src="img/logo.png">
+                    </section>
+                    <!--Events Page-->
+                    <section>
+                        <core-toolbar id="core_toolbar" >
+                            <core-icon-button core-drawer-toggle icon="menu"></core-icon-button>
+                            <div>Events</div>
+                        </core-toolbar>
+                        <div class="container" layout vertical center>
+                            <p id="events-missing" class="hidden-card">Nothing here? Either the server is temporarily down or you aren't connected to the internet.</p>
+                            <events-list></events-list>
+                        </div>
+                    </section>
+                    <!--Specials Page-->
+                    <section>
+                        <core-toolbar id="core_toolbar" >
+                            <core-icon-button core-drawer-toggle icon="menu"></core-icon-button>
+                            <div>Specials</div>
+                        </core-toolbar>
+                        <div class="container" layout vertical center>
+                            <p id="specials-missing" class="hidden-card">Nothing here? Either the server is temporarily down or you aren't connected to the internet.</p>
+                            <specials-list></specials-list>
+                        </div>
+                    </section>
+                    <!--Gallery-->
+                    <section>
+                        <core-toolbar id="core_toolbar" >
+                            <core-icon-button core-drawer-toggle icon="menu"></core-icon-button>
+                            <div>Gallery</div>
+                        </core-toolbar>
+                        <div class="container" layout vertical center>
+                            <p id="gallery-missing" class="hidden-card">Nothing here? Either the server is temporarily down or you aren't connected to the internet.</p>
+                            <gallery-list></gallery-list>
+                        </div>
+                    </section>
+                    <!--Contact us-->
+                    <section>
+                        <core-toolbar id="core_toolbar" >
+                            <core-icon-button core-drawer-toggle icon="menu"></core-icon-button>
+                            <div>Contact us</div>
+                        </core-toolbar>
+                        <post-card class="contact" layout vertical center onclick="window.location.href = 'map.html';">
+                            <h4>Address</h4>
+                            <p>31 Sturt Street, Ballarat</p>
+                            <p>VIC, 3350</p>
+                            <p>&middot;</p>
+                            <p style="font-size: 15px"><i>Tap here for directions</i></p>
+                        </post-card>
+                        <post-card class="contact" layout vertical center>
+                            <h4>Phone</h4>
+                            <p>03 5333 4393</p>
+                        </post-card>
+                        <post-card class="contact" layout vertical center>
+                            <h4 flex>Opening Hours</h4>
+                            <p><b>Monday - Wednesday</b></p>
+                            <p>9am - 6pm</p>
+                            <p>&middot;</p>
+                            <p><b>Thursday - Saturday</b></p>
+                            <p>9am - 11pm</p>
+                            <p>&middot;</p>
+                            <p><b>Sunday</b></p>
+                            <p>10am - 5pm</p>
+                        </post-card>
+                    </section>
+                </core-animated-pages>
+            </core-header-panel>
+            <core-header-panel id="nav" drawer flex>
+                <core-toolbar id="core_toolbar" style="padding-left: 10px">Navigation</core-toolbar>
+                <core-menu flex vertical>
+                    <core-item icon="home" label="Home" onclick="selectPage(0);"></core-item>
+                    <core-item icon="event" label="Events" onclick="selectPage(1);"></core-item>
+                    <core-item icon="star" label="Specials" onclick="selectPage(2);"></core-item>
+                    <core-item icon="image:photo-camera" label="Gallery" onclick="selectPage(3);"></core-item>
+                    <core-item icon="maps:directions" label="Directions" onclick="window.location.href = 'map.html';"></core-item>
+                    <core-item icon="social:post-facebook" label="Facebook" onclick="window.open('https://www.facebook.com/suttonshouseofmusic', '_system', 'location=no')"></core-item>
+                    <core-item icon="social:post-twitter" label="Twitter" onclick="window.open('https://twitter.com/suttonshom', '_system', 'location=no')"></core-item>
+                    <core-item icon="social:post-instagram" label="Instagram" onclick="window.open('http://www.instagram.com/', '_system', 'location=no')"></core-item>
+                    <core-item icon="perm-contact-cal" label="Contact us" onclick="selectPage(4);"></core-item>
+                </core-menu>
+            </core-header-panel>
+        </core-drawer-panel>
+        <paper-toast id="nolink" text="Sorry! That event doesn't link anywhere."></paper-toast>
+        <script src="js/ideal-image-slider.min.js"></script>
+        <script>
+        var s = new IdealImageSlider.Slider({
+            selector: '#slider',
+            height: 600,
+            interval: 4000,
+            transitionDuration: 700,
+        });
+        s.start();
+        
+        function remove(n) {
+            alert("FUCK JS");
+            n.parentNode.parentNode.removeChild(n.parentNode);
+        }
+        </script>
+    </body>
+</html>

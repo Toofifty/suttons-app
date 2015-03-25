@@ -1,0 +1,243 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="stylesheet" type="text/css" href="css/index.css">
+
+<polymer-element name="event-card" attributes="entry">
+    <template>
+        <style>
+            :host {
+                width: 100%;
+            }
+            
+            p {
+                margin-top: 0px;
+                margin-bottom: 0px;
+                padding: 10px;
+                font-size: 14px;
+            }
+            .event {
+                position: relative;
+                width: 90%;
+                height: auto;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                border-radius: 5px 5px 2px 2px;
+                background: #333;
+                box-shadow: 0px 5px 5px #000;
+                z-index: 0;
+            }
+            .event #art {
+                width: 98%;
+                margin: 1%;
+                border-radius: 5px 5px 5px 5px;
+            }
+            .event .arrow {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                width: 30px;
+                height: 30px;
+                background: #aaa;
+                z-index: 1;
+            }
+            .event #date {
+                position: absolute;
+                background-color: #9fa738;
+                color: #fff;
+                right: 0;
+                bottom: 0;
+                height: 30px;
+                font-weight: bold;
+                border-radius: 4px 0px 0px 0px;
+                padding-right: 30px;
+            }
+            .event #title {
+                font-family: Bebas, sans-serif;
+                position: absolute;
+                max-width: 60%;
+                padding: 2px;
+                background: #333;
+                color: #9fa738;
+                left: 0;
+                top: 0;
+                height: auto;
+                font-weight: bold;
+                border-radius: 0px 0px 4px 0px;
+                font-family: 'Georgia', sans-serif;
+                font-size: 18px;
+                font-weight: bold;
+                font-style: italic;
+            }
+            .event #title p {
+                font-family: Bebas, sans-serif;
+                font-style: normal;
+            }
+            .event #subtitle p {
+                font-family: Bebas, sans-serif;
+                font-style: normal;
+            }
+            .event #collapse p {
+                font-family: Raleway, sans-serif;
+                font-style: normal;
+            }
+            .event #subtitle {
+                position: absolute;
+                max-width: 35%;
+                padding: 2px;
+                background: #333;
+                color: #9fa738;
+                right: 0;
+                top: 0;
+                height: auto;
+                font-weight: bold;
+                border-radius: 0px 0px 0px 4px;
+                font-family: 'Georgia', sans-serif;
+                font-size: 18px;
+                font-weight: bold;
+                font-style: italic;
+            }
+            .event h4 {
+                position: absolute;
+                top: 0;
+                left: 1;
+                z-index: 1;
+                background: rgba(51, 51, 51, 0.75);
+                color: rgba(51, 51, 51, 0.75);
+                border-radius: 0px 0px 4px 0px;
+            }
+            .event #collapse {
+                color: #ddd;
+                background-color: #333;
+                border-color: #777;
+                border-style: solid;
+                border-width: 1px;
+                margin: 1%;
+                border-radius: 5px 5px 2px 2px;
+            }
+            #artistlink {
+                display: block;
+                background-color: #9fa738;
+                color: #fff;
+            }
+            #ticketfree {
+                display: block;
+                background-color: #729C34;
+                color: #fff;
+            }
+            #ticketdoor {
+                display: block;
+                background-color: #8E305B;
+                color: #fff;
+            }
+            #ticketpresale {
+                display: block;
+                background-color: #5F2870;
+                color: #fff;
+            }
+            #extlink {
+                display: inline;
+                height: 15px;
+                width: auto;
+                padding-left: 5px;
+            }
+        </style>
+        <div class="event" on-click="{{collapse}}">
+            <div id="title">
+                <p>{{entry.gsx$title.$t}}</p>
+            </div>
+            <div id="subtitle">
+                <p>+ {{entry.gsx$subtitle.$t}}</p>
+            </div>
+            <img id="art" src="{{entry.gsx$image.$t}}">
+            <img class="arrow" id="drop" src="img/drop_arrow.png">
+            <img class="arrow" id="up" src="img/up_arrow.png">
+            <div id="date">
+                <p>{{dateString}}</p>
+            </div>
+            <core-collapse id="collapse">
+                <div id="artistlink">
+                    <p>View artist's website</p>
+                </div>
+                <div>
+                    <p>{{entry.gsx$text.$t}}</p>
+                </div>
+                <div id="ticketfree">
+                    <p>FREE ENTRY</p>
+                </div>
+                <div id="ticketdoor">
+                    <p>DOOR {{entry.gsx$ticketdoor.$t}}</p>
+                </div>
+                <div id="ticketpresale" onclick="{{gotoTickets}}">
+                    <p>PRESALE {{entry.gsx$ticketpresale.$t}} <img id="extlink" src="img/external_link.png"></p>
+                </div>
+            </core-collapse>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            dateString: "null",
+            collapsed: true,
+            artistlink: "null",
+            entry: [],
+            collapse: function(e) {
+                var collapseNode = e.target.parentElement.childNodes[13];
+                if (collapseNode && collapseNode.id == "collapse") {
+                    collapseNode.toggle();
+                    this.$.drop.hidden = !this.$.drop.hidden;
+                    this.$.up.hidden = !this.$.drop.hidden;
+                }
+            },
+            created: function() {
+                this.entry = [];
+                this.collapsed = true;
+            },
+            entryChanged: function(e) {
+                this.$.up.hidden = true;
+                
+                // convert date to text
+                var eventDateStr = this.entry.gsx$date.$t;
+                var eventDateSep = eventDateStr.split("/");
+                var eventDate = new Date(eventDateSep[2], eventDateSep[1] - 1, eventDateSep[0], 0, 0, 0);
+                this.dateString = eventDate.toDateString().toUpperCase();
+                
+                // hide if date passed
+                if (eventDate < new Date()) {
+                    this.hidden = true;
+                } else {
+                    document.getElementById("events-missing").hidden = true;
+                }
+                
+                // hide subtitle
+                if (this.entry.gsx$subtitle.$t == "") {
+                    this.$.subtitle.hidden = true;
+                }
+                
+                if (this.entry.gsx$link.$t != "") {
+                    this.artistlink = this.entry.gsx$link.$t;
+                } else {
+                    this.$.artistlink.hidden = true;
+                }
+                
+                this.$.ticketfree.hidden = true;
+                this.$.ticketdoor.hidden = true;
+                this.$.ticketpresale.hidden = true;
+                
+                // hide ticket divs
+                if (this.entry.gsx$ticketdoor.$t == "" || this.entry.gsx$ticketdoor.$t == "$0.00") {
+                    this.$.ticketfree.hidden = false;
+                } else {
+                    this.$.ticketdoor.hidden = false;
+                }
+                if (this.entry.gsx$ticketpresale.$t != "") {
+                    this.$.ticketpresale.hidden = false;
+                }
+            },
+            gotoTickets: function(e) {
+                //if (this.entry.gsx$externaltickets.$t != "") {
+                    //alert(this.entry.gsx$externaltickets.$t);
+                //}
+            }
+        });
+    </script>
+</polymer-element>

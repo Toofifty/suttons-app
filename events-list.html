@@ -1,0 +1,26 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="post-service.html">
+<link rel="import" href="event-card.html">
+
+<polymer-element name="events-list">
+    <template>
+        <style>
+            :host {
+                display: block;
+                width: 100%;
+            }
+        </style>
+        <post-service id="service" posts="{{posts}}" url="https://spreadsheets.google.com/feeds/list/19OQ3NuoSXRHxNL5sx9XCG_eXKonPRgLLpOJWkqxiTdQ/od6/public/values?alt=json-in-script&callback="></post-service>
+
+        <div layout vertical center>
+            <template repeat="{{post in posts.feed.entry}}">
+                <event-card entry="{{post}}">
+                </event-card>
+            </template>
+        </div>
+        
+    </template>
+    <script>
+        Polymer({});
+    </script>
+</polymer-element>

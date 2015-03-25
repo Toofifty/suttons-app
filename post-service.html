@@ -1,0 +1,28 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/core-ajax/core-ajax.html">
+<link rel="import" href="bower_components/polymer-jsonp/polymer-jsonp.html">
+
+<polymer-element name="post-service" attributes="posts url">
+  <template>
+    <style>
+    :host {
+      display: none;
+    }
+    </style>
+    <polymer-jsonp id="ajax"
+      auto
+      url="{{url}}"
+      response="{{posts}}">
+    </polymer-jsonp>
+  </template>
+  <script>
+  Polymer('post-service', {
+    created: function() {
+      this.posts = [];
+    },
+    postsLoaded: function() {
+      this.posts = this.$.ajax.response.slice(0);
+    }
+  });
+  </script>
+</polymer-element>

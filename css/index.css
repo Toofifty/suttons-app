@@ -1,0 +1,130 @@
+/*
+ * @author: Alex Matheson
+ * http://www.toofifty.me/
+ * http://www.github.com/toofifty/
+ */
+
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+([hidden], .hidden) {
+    display: none;
+}
+
+@font-face {
+    font-family: Bebas;
+    src: url('../font/Bebas.ttf');
+}
+
+@font-face {
+    font-family: raleway;
+    src: url('../font/Raleway.ttf');
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: #222;
+    color: #666;
+}
+
+.contact {
+    padding: 10px;
+}
+
+.contact h4 {
+    font-family: 'Georgia', sans-serif;
+    color: #AEC00D;
+    font-weight: normal;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.contact p {
+    margin: 0px;
+}
+
+.header-card {
+    background-color: #9fa738;
+    vertical-align: middle;
+    margin: 0px;
+    font-family: 'Georgia', sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: italic;
+    text-align: center;
+    margin-top: 20px;
+    color: #fff;
+    text-shadow: 2px 2px #777;
+    padding: 0px;
+}
+
+.hidden-card {
+    position: fixed;
+    margin: 70px;
+    padding: 20px;
+    background-color: #9fa738;
+    vertical-align: middle;
+    font-family: 'Georgia', sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: italic;
+    text-align: center;
+    color: #fff;
+    text-shadow: 2px 2px #777;
+}
+
+.header-card p {
+    margin: 20px;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.logo {
+    z-index: 1;
+    bottom: 0px;
+    position: fixed;
+    background: #222;
+}
+
+core-scaffold {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 7;
+}
+
+#core_toolbar {
+    color: #AEC00D;
+    background-color: #444;
+    z-index: 10;
+}
+
+core-menu {
+    color: #FFF;
+    background-color: #252525;
+    z-index: 10;
+}
+
+core-drawer-panel:not([narrow]) #nav_icon {
+    display: none;
+}
+
+#nav {
+    background-color: #252525;
+    z-index: 10;
+}
+
+.map-div {
+    height: 100%;
+    color: #AEC00D;
+}
+
+.map-div #map-frame {
+    width: 100%;
+}

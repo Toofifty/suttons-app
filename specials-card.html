@@ -1,0 +1,171 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="stylesheet" type="text/css" href="css/index.css">
+
+<polymer-element name="specials-card" attributes="entry">
+    <template>
+        <style>
+            :host {
+                width: 100%;
+            }
+            
+            p {
+                margin-top: 0px;
+                margin-bottom: 0px;
+                padding: 10px;
+                font-size: 14px;
+            }
+            .special {
+                position: relative;
+                width: 90%;
+                height: auto;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 10px;
+                margin-top: 10px;
+                border-radius: 5px;
+                box-shadow: 0px 5px 5px #000;
+                overflow: hidden;
+            }
+            .special .info {
+                display: block;
+                background-color: #9fa738;
+                color: #fff;
+            }
+            .special .title {
+                font-family: Bebas, sans-serif;
+                font-style: normal;
+            }
+            .special .dates {
+                background-color: #729C34;
+            }
+            .special #collapse {
+                color: #ddd;
+                background-color: #333;
+            }
+            .special #collapse p {
+                font-family: Raleway, sans-serif;
+                font-style: normal;
+            }
+            .special .arrow {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                width: 30px;
+                height: 30px;
+                background: rgba(100, 100, 100, 0.3);
+                z-index: 1;
+                border-radius: 5px 0px 0px 0px;
+            }
+        </style>
+        <div class="special" on-click="{{collapse}}">
+            <p class="info title">{{entry.gsx$promo.$t}}</p>
+            <p class="info dates">{{dates}}</p>
+            <img class="arrow" id="drop" src="img/drop_arrow.png">
+            <img class="arrow" id="up" src="img/up_arrow.png">
+            <core-collapse id="collapse">
+                <p>{{entry.gsx$description.$t}}</p>
+                <p id="timestarts" class="info times">Starts {{starttime}}</p>
+                <p id="timeends" class="info times">Ends {{endtime}}</p>
+                <p id="othertime" class="info times">{{othertime}}</p>
+            </core-collapse>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            startdate: "null",
+            enddate: "null",
+            dates: "null",
+            starttime: "null",
+            endtime: "null",
+            othertime: "null",
+            collapse: function(e) {
+                var collapseNode = e.target.parentElement.childNodes[9];
+                 if (collapseNode && collapseNode.id == "collapse") {
+                    collapseNode.toggle();
+                    this.$.drop.hidden = !this.$.drop.hidden;
+                    this.$.up.hidden = !this.$.drop.hidden;
+                }
+            },
+            entryChanged: function(e) {
+                this.$.up.hidden = true;
+                
+                // no end date, only start (one day special)
+                if (this.entry.gsx$enddate.$t == "") {
+                    
+                    var dateStr = this.entry.gsx$startdate.$t;
+                    var dateSep = dateStr.split("/");
+                    var endDate = new Date(dateSep[2], dateSep[1] - 1, dateSep[0], 0, 0, 0);
+                    this.dates = endDate.toDateString().toUpperCase();
+
+                    this.$.timestarts.hidden = true;
+                    this.$.timeends.hidden = true;
+                    
+                    if (this.entry.gsx$starttime.$t == "" && this.entry.gsx$endtime.$t == "") {
+                        
+                        this.othertime = "All day";
+                        
+                    } else if (this.entry.gsx$starttime.$t == "") {
+                        
+                        this.othertime = "All day to " + this.entry.gsx$endtime.$t;
+                        
+                    } else if (this.entry.gsx$endtime.$t == "") {
+                        
+                        this.othertime = this.entry.gsx$starttime.$t + " to closing";
+                        
+                    } else {
+                        
+                        this.othertime = this.entry.gsx$starttime.$t + " to " + this.entry.gsx$endtime.$t;
+                        
+                    }
+                    
+                } else {
+                
+                    var startDateStr = this.entry.gsx$startdate.$t;
+                    var startDateSep = startDateStr.split("/");
+                    var startDate = new Date(startDateSep[2], startDateSep[1] - 1, startDateSep[0], 0, 0, 0);
+                    this.startdate = startDate.toDateString();
+                    
+                    var endDateStr = this.entry.gsx$enddate.$t;
+                    var endDateSep = endDateStr.split("/");
+                    var endDate = new Date(endDateSep[2], endDateSep[1] - 1, endDateSep[0], 0, 0, 0);
+                    this.enddate = endDate.toDateString();
+                    
+                    this.dates = this.startdate.toUpperCase() + " to " + this.enddate.toUpperCase();
+                    
+                    if (this.entry.gsx$starttime.$t == "" && this.entry.gsx$endtime.$t == "") {
+                        
+                        this.othertime = "All day, every day";
+                        this.$.timestarts.hidden = true;
+                        this.$.timeends.hidden = true;
+                        
+                    } else if (this.entry.gsx$starttime.$t == "") {
+                        
+                        this.endtime = this.entry.gsx$endtime.$t + ", " + this.enddate;
+                        this.$.timestarts.hidden = true;
+                        this.$.othertime.hidden = true;
+                        
+                    } else if (this.entry.gsx$endtime.$t == "") {
+                        
+                        this.starttime = this.entry.gsx$starttime.$t + ", " + this.startdate;
+                        this.$.timeends.hidden = true;
+                        this.$.othertime.hidden = true;
+                        
+                    } else {
+                        
+                        this.starttime = this.entry.gsx$starttime.$t + ", " + this.startdate;
+                        this.endtime = this.entry.gsx$endtime.$t + ", " + this.enddate;
+                        this.$.othertime.hidden = true;
+                        
+                    }
+                
+                }
+                
+                if (endDate < new Date()) {
+                    this.hidden = true;
+                } else {
+                    document.getElementById("specials-missing").hidden = true;
+                }
+            }
+        });
+    </script>
+</polymer-element>

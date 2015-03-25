@@ -1,0 +1,26 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="post-service.html">
+<link rel="import" href="gallery-card.html">
+
+<polymer-element name="gallery-list">
+    <template>
+        <style>
+            :host {
+                display: block;
+                width: 100%;
+            }
+        </style>
+        <post-service id="service" posts="{{posts}}" url="https://spreadsheets.google.com/feeds/list/19OQ3NuoSXRHxNL5sx9XCG_eXKonPRgLLpOJWkqxiTdQ/oz8ufjb/public/values?alt=json-in-script&callback="></post-service>
+        
+        <div layout vertical center>
+            <template repeat="{{post in posts.feed.entry}}">
+                <gallery-card entry="{{post}}">
+                </gallery-card>
+            </template>
+        </div>
+        
+    </template>
+    <script>
+        Polymer({});
+    </script>
+</polymer-element>

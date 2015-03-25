@@ -1,0 +1,79 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="stylesheet" type="text/css" href="css/index.css">
+
+<polymer-element name="gallery-card" attributes="entry">
+    <template>
+        <style>
+            :host {
+                width: 100%;
+            }
+            
+            p {
+                margin-top: 0px;
+                margin-bottom: 0px;
+                padding: 10px;
+                font-size: 14px;
+            }
+            .image-container {
+                position: relative;
+                width: 90%;
+                height: auto;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 10px;
+                margin-top: 10px;
+                border-radius: 5px;
+                box-shadow: 0px 5px 5px #000;
+                overflow: hidden;
+            }
+            .image-container #image {
+                width: 100%;
+                border-radius: 5px 5px 5px 5px;
+            }
+            .image-container #collapse {
+                color: #ddd;
+                background-color: #333;
+                margin: 1%;
+                border-radius: 5px 5px 5px 5px;
+            }
+            .image-container #collapse p {
+                font-family: Raleway, sans-serif;
+                font-style: normal;
+            }
+            .image-container .arrow {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                width: 30px;
+                height: 30px;
+                background: #aaa;
+                z-index: 1;
+                border-radius: 5px 0px 0px 0px;
+            }
+        </style>
+        <div class="image-container" on-click="{{collapse}}">
+            <img id="image" src="{{entry.gsx$link.$t}}">
+            <img class="arrow" id="drop" src="img/drop_arrow.png">
+            <img class="arrow" id="up" src="img/up_arrow.png">
+            <core-collapse id="collapse">
+                <p>{{entry.gsx$description.$t}}</p>
+            </core-collapse>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            collapse: function(e) {
+                var collapseNode = e.target.parentElement.childNodes[7];
+                 if (collapseNode && collapseNode.id == "collapse") {
+                    collapseNode.toggle();
+                    this.$.drop.hidden = !this.$.drop.hidden;
+                    this.$.up.hidden = !this.$.drop.hidden;
+                }
+            },
+            entryChanged: function(e) {
+                this.$.up.hidden = true;
+                document.getElementById("gallery-missing").hidden = true;
+            }
+        });
+    </script>
+</polymer-element>

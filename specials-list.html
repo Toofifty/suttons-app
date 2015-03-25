@@ -1,0 +1,52 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="post-service.html">
+<link rel="import" href="specials-card.html">
+
+<polymer-element name="specials-list">
+    <template>
+        <style>
+            :host {
+                display: block;
+                width: 100%;
+            }
+            p {
+                margin-top: 0px;
+                margin-bottom: 0px;
+                padding: 10px;
+                font-size: 14px;
+                font-family: arial, sans-serif;
+            }
+            h4 {
+                margin-top: 0px;
+                margin-bottom: 0px;
+                padding: 10px;
+                width: 55%;
+                font-style: italic;
+                font-family: 'Georgia', sans-serif;
+                background-color: #111;
+            }
+            .promo {
+                margin-top: 0px;
+                margin-bottom: 0px;
+                color: white;
+                background-color: #9fa738;
+                width: 45%;
+                height: 100%;
+                padding: 10px;
+            }
+        </style>
+
+        <post-service id="service" posts="{{posts}}" url="https://spreadsheets.google.com/feeds/list/19OQ3NuoSXRHxNL5sx9XCG_eXKonPRgLLpOJWkqxiTdQ/ojrbilt/public/values?alt=json-in-script&callback=">
+        </post-service>
+
+        <div layout vertical center>
+            <template repeat="{{post in posts.feed.entry}}">
+                <specials-card entry="{{post}}">
+                </specials-card>
+            </template>
+        </div>
+    </template>
+    <script>
+        Polymer({});
+    </script>
+</polymer-element>
